@@ -1,8 +1,23 @@
 import { Button } from "@/components/ui/button";
 import { Github, Linkedin, Mail, ExternalLink, Code } from "lucide-react";
 import heroBackground from "@/assets/hero-background.jpg";
+import { useState, useEffect } from "react";
 
 export const Hero = () => {
+  const [displayText, setDisplayText] = useState("");
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const fullText = "Full-Stack Software Engineer";
+
+  useEffect(() => {
+    if (currentIndex < fullText.length) {
+      const timeout = setTimeout(() => {
+        setDisplayText(prev => prev + fullText[currentIndex]);
+        setCurrentIndex(prev => prev + 1);
+      }, 100);
+      return () => clearTimeout(timeout);
+    }
+  }, [currentIndex, fullText]);
+
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -24,7 +39,7 @@ export const Hero = () => {
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
             <span className="block">Kashish Makkar</span>
             <span className="block text-2xl md:text-4xl font-medium text-white/90 mt-4">
-              Full-Stack Software Engineer
+              {displayText}<span className="animate-pulse">|</span>
             </span>
           </h1>
           

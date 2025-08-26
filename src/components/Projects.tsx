@@ -86,18 +86,18 @@ export const Projects = () => {
             {projects.filter(project => project.featured).map((project, index) => (
               <Card 
                 key={project.title} 
-                className="p-8 card-shadow hover-lift animate-fade-in"
+                className="p-8 card-shadow hover:scale-105 hover:-translate-y-2 transition-all duration-300 group animate-fade-in border-l-4 border-l-primary/20 hover:border-l-primary"
                 style={{ animationDelay: `${index * 0.2}s` }}
               >
                 <div className="flex items-start justify-between mb-4">
-                  <h3 className="text-2xl font-bold text-foreground">
+                  <h3 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
                     {project.title}
                   </h3>
-                  <div className="flex space-x-2">
-                    <Button size="sm" variant="ghost" className="p-2">
+                  <div className="flex space-x-2 opacity-70 group-hover:opacity-100 transition-opacity duration-300">
+                    <Button size="sm" variant="ghost" className="p-2 hover:bg-primary hover:text-primary-foreground">
                       <Github className="h-4 w-4" />
                     </Button>
-                    <Button size="sm" variant="ghost" className="p-2">
+                    <Button size="sm" variant="ghost" className="p-2 hover:bg-primary hover:text-primary-foreground">
                       <ExternalLink className="h-4 w-4" />
                     </Button>
                   </div>
@@ -140,7 +140,7 @@ export const Projects = () => {
             {projects.filter(project => !project.featured).map((project, index) => (
               <Card 
                 key={project.title} 
-                className="p-6 card-shadow hover-lift animate-fade-in"
+                className="p-6 card-shadow hover:scale-105 hover:-translate-y-1 transition-all duration-300 group animate-fade-in"
                 style={{ animationDelay: `${(index + 2) * 0.2}s` }}
               >
                 <div className="flex items-start justify-between mb-3">

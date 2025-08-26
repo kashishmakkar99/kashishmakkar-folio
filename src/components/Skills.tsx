@@ -1,7 +1,48 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useState, useEffect, useRef } from "react";
 
 export const Skills = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [progressValues, setProgressValues] = useState<{[key: string]: number}>({});
+  const sectionRef = useRef<HTMLElement>(null);
+
+  const skillLevels = {
+    "Java": 90,
+    "Spring Boot": 85,
+    "Angular": 80,
+    "TypeScript": 75,
+    "PostgreSQL": 80,
+    "Docker": 70,
+    "Microservices": 85
+  };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (isVisible) {
+      Object.entries(skillLevels).forEach(([skill, level], index) => {
+        setTimeout(() => {
+          setProgressValues(prev => ({ ...prev, [skill]: level }));
+        }, index * 200);
+      });
+    }
+  }, [isVisible]);
   const skillCategories = [
     {
       category: "Languages",
@@ -31,7 +72,7 @@ export const Skills = () => {
   ];
 
   return (
-    <section id="skills" className="py-20 hero-gradient-light">
+    <section ref={sectionRef} id="skills" className="py-20 hero-gradient-light">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
@@ -43,26 +84,52 @@ export const Skills = () => {
           </p>
         </div>
         
+        {/* Skill Progress Bars */}
+        <div className="max-w-4xl mx-auto mb-16">
+          <Card className="p-8 card-shadow">
+            <h3 className="text-2xl font-semibold text-foreground mb-8 text-center">
+              Core Competencies
+            </h3>
+            <div className="space-y-6">
+              {Object.entries(skillLevels).map(([skill, level]) => (
+                <div key={skill} className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm font-medium text-foreground">{skill}</span>
+                    <span className="text-sm text-muted-foreground">{progressValues[skill] || 0}%</span>
+                  </div>
+                  <div className="w-full bg-muted rounded-full h-2">
+                    <div 
+                      className="bg-gradient-to-r from-primary to-tech-blue h-2 rounded-full transition-all duration-1000 ease-out"
+                      style={{ width: `${progressValues[skill] || 0}%` }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Card>
+        </div>
+
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {skillCategories.map((category, index) => (
             <Card 
               key={category.category} 
-              className="p-6 card-shadow hover-lift animate-fade-in"
+              className="p-6 card-shadow hover:scale-105 transition-all duration-300 group animate-fade-in"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="flex items-center mb-4">
-                <div className={`w-3 h-3 rounded-full ${category.color} mr-3`}></div>
+                <div className={`w-3 h-3 rounded-full ${category.color} mr-3 group-hover:scale-150 transition-transform duration-300`}></div>
                 <h3 className="text-xl font-semibold text-foreground">
                   {category.category}
                 </h3>
               </div>
               
               <div className="flex flex-wrap gap-2">
-                {category.skills.map((skill) => (
+                {category.skills.map((skill, skillIndex) => (
                   <Badge 
                     key={skill} 
                     variant="secondary"
-                    className="hover:bg-primary hover:text-primary-foreground transition-colors duration-200"
+                    className="hover:bg-primary hover:text-primary-foreground transition-all duration-200 hover:scale-110 animate-fade-in"
+                    style={{ animationDelay: `${(index * 0.1) + (skillIndex * 0.05)}s` }}
                   >
                     {skill}
                   </Badge>
