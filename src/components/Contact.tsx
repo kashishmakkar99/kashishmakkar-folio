@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Mail, Phone, MapPin, Linkedin, Github, Download } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, Github, Download, Code } from "lucide-react";
 
 export const Contact = () => {
   const contactInfo = [
@@ -36,6 +36,12 @@ export const Contact = () => {
       label: "GitHub",
       href: "https://github.com/kashishmakkar99",
       color: "hover:text-foreground"
+    },
+    {
+      icon: Code,
+      label: "LeetCode",
+      href: "https://leetcode.com/u/bigmakk_/",
+      color: "hover:text-tech-purple"
     }
   ];
 

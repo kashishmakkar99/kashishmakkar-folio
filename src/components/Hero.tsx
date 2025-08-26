@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Github, Linkedin, Mail, ExternalLink } from "lucide-react";
+import { Github, Linkedin, Mail, ExternalLink, Code } from "lucide-react";
 import heroBackground from "@/assets/hero-background.jpg";
 
 export const Hero = () => {
@@ -73,6 +73,14 @@ export const Hero = () => {
               className="text-white/70 hover:text-white transition-colors duration-300 hover:scale-110 transform"
             >
               <Github className="h-8 w-8" />
+            </a>
+            <a 
+              href="https://leetcode.com/u/bigmakk_/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/70 hover:text-white transition-colors duration-300 hover:scale-110 transform"
+            >
+              <Code className="h-8 w-8" />
             </a>
             <a 
               href="mailto:kashishmakkar99@gmail.com"
