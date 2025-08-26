@@ -48,7 +48,7 @@ export const Hero = () => {
             <Button 
               size="lg" 
               variant="outline"
-              className="border-white text-white hover:bg-white hover:text-primary font-semibold px-8 py-6 text-lg"
+              className="border-2 border-white bg-white/10 text-white hover:bg-white hover:text-primary font-semibold px-8 py-6 text-lg backdrop-blur-sm"
               onClick={() => scrollToSection('projects')}
             >
               <ExternalLink className="mr-2 h-5 w-5" />
