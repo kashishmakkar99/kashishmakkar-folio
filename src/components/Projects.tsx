@@ -1,7 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { ExternalLink, Github, Calendar } from "lucide-react";
+import { ProjectFlashcard } from "./ProjectFlashcard";
 
 export const Projects = () => {
   const projects = [
@@ -81,104 +80,18 @@ export const Projects = () => {
         </div>
         
         <div className="max-w-7xl mx-auto">
-          {/* Featured Projects */}
-          <div className="grid lg:grid-cols-2 gap-8 mb-12">
-            {projects.filter(project => project.featured).map((project, index) => (
-              <Card 
-                key={project.title} 
-                className="p-8 card-shadow hover:scale-105 hover:-translate-y-2 transition-all duration-300 group animate-fade-in border-l-4 border-l-primary/20 hover:border-l-primary"
-                style={{ animationDelay: `${index * 0.2}s` }}
-              >
-                <div className="flex items-start justify-between mb-4">
-                  <h3 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
-                    {project.title}
-                  </h3>
-                  <div className="flex space-x-2 opacity-70 group-hover:opacity-100 transition-opacity duration-300">
-                    <Button size="sm" variant="ghost" className="p-2 hover:bg-primary hover:text-primary-foreground">
-                      <Github className="h-4 w-4" />
-                    </Button>
-                    <Button size="sm" variant="ghost" className="p-2 hover:bg-primary hover:text-primary-foreground">
-                      <ExternalLink className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
-                
-                <div className="flex items-center text-sm text-muted-foreground mb-4">
-                  <Calendar className="h-4 w-4 mr-2" />
-                  {project.period}
-                </div>
-                
-                <p className="text-muted-foreground mb-6 leading-relaxed">
-                  {project.description}
-                </p>
-                
-                <div className="mb-6">
-                  <h4 className="font-semibold text-foreground mb-3">Key Features:</h4>
-                  <ul className="space-y-2">
-                    {project.highlights.map((highlight, idx) => (
-                      <li key={idx} className="flex items-start text-sm text-muted-foreground">
-                        <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                        {highlight}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                
-                <div className="flex flex-wrap gap-2">
-                  {project.technologies.map((tech) => (
-                    <Badge key={tech} variant="secondary">
-                      {tech}
-                    </Badge>
-                  ))}
-                </div>
-              </Card>
-            ))}
+          {/* All Projects as Flashcards */}
+          <div className="text-center mb-8">
+            <p className="text-muted-foreground">Click on any card to flip and see details</p>
           </div>
           
-          {/* Other Projects */}
-          <div className="grid md:grid-cols-2 gap-6">
-            {projects.filter(project => !project.featured).map((project, index) => (
-              <Card 
-                key={project.title} 
-                className="p-6 card-shadow hover:scale-105 hover:-translate-y-1 transition-all duration-300 group animate-fade-in"
-                style={{ animationDelay: `${(index + 2) * 0.2}s` }}
-              >
-                <div className="flex items-start justify-between mb-3">
-                  <h3 className="text-xl font-semibold text-foreground">
-                    {project.title}
-                  </h3>
-                  <div className="flex space-x-1">
-                    <Button size="sm" variant="ghost" className="p-1.5">
-                      <Github className="h-3.5 w-3.5" />
-                    </Button>
-                    <Button size="sm" variant="ghost" className="p-1.5">
-                      <ExternalLink className="h-3.5 w-3.5" />
-                    </Button>
-                  </div>
-                </div>
-                
-                <div className="flex items-center text-xs text-muted-foreground mb-3">
-                  <Calendar className="h-3 w-3 mr-1" />
-                  {project.period}
-                </div>
-                
-                <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                  {project.description}
-                </p>
-                
-                <div className="flex flex-wrap gap-1">
-                  {project.technologies.slice(0, 4).map((tech) => (
-                    <Badge key={tech} variant="secondary" className="text-xs">
-                      {tech}
-                    </Badge>
-                  ))}
-                  {project.technologies.length > 4 && (
-                    <Badge variant="secondary" className="text-xs">
-                      +{project.technologies.length - 4} more
-                    </Badge>
-                  )}
-                </div>
-              </Card>
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-6">
+            {projects.map((project, index) => (
+              <ProjectFlashcard 
+                key={project.title}
+                project={project}
+                index={index}
+              />
             ))}
           </div>
         </div>
